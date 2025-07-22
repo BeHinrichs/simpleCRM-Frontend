@@ -1,4 +1,14 @@
 /* You can add global styles to this file, and also import other style files */
+/* ############### FONTS ##################*/
+@font-face {
+    font-family: michroma;
+    src: url(./assets/fonts/Michroma-Regular.ttf);
+}
+@font-face {
+    font-family: montserrat;
+    src: url(./assets/fonts/Montserrat-VariableFont_wght.ttf);
+}
+
 /*  ################ Main Style  #####################*/
 body {
     padding: 0;

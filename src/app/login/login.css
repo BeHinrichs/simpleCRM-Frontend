@@ -8,6 +8,7 @@
 .login-container {
     display: flex;
     flex-direction: column;
+    font-family: montserrat;
     width: 45rem;
     height: 30rem;
     position: relative;
