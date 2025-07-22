@@ -8,8 +8,8 @@
 .login-container {
     display: flex;
     flex-direction: column;
-    width: 25rem;
-    height: 45rem;
+    width: 45rem;
+    height: 30rem;
     position: relative;
     border-radius:12px;
     background-color: #30d0ca;
@@ -27,4 +27,23 @@
     background-image:linear-gradient(90deg, #0c72c8, #30d0ca);
     border-radius:12px;
     z-index:-1;
+}
+.login-form {
+    display: flex;
+    flex-direction: row;
+    gap: 2rem;
+}
+.login-form-input {
+    display: flex;
+    flex-direction: column;
+    width: 70%;
+}
+.login-image {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+.login-image svg {
+    width: 6rem;
 }
