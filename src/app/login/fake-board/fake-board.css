@@ -1,9 +1,10 @@
 .fake-dashboard {
     position: absolute;
     width: 100vw;
-    height: 97%;
+    height: 100vh;
     object-fit: cover;
     margin-top: 0.7rem;
+    z-index: 1;
 }
 .head-container {
     display: flex;
@@ -29,9 +30,13 @@
 .link {
     color: black;
 }
-
-/* ##################### Content ############### */
-.dashboard-content {
-    padding: 0 1rem 0 1rem;
-    height: 100%;
+.blur-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  backdrop-filter: blur(2px);
+  background-color: rgba(255, 255, 255, 0.2); 
+  z-index: 2;
 }
