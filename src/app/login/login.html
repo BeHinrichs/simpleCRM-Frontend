@@ -18,10 +18,12 @@
                     }
                 </div>
             </div>
-            <div class="login-button-container">
-                <img [src]="isUnlocked ? '../../assets/images/unlocked.png' : '../../assets/images/locked.png'" alt="Schloss" class="login-button" (click)="onSubmit()">
-                
-            </div>
+            <button class="button" (click)="onSubmit()">
+                <div class="blob1"></div>
+                <div class="blob2"></div>
+                <div class="inner">Login</div>
+            </button>
+            
         </form>
         <div class="link-container">
             <a [routerLink]="['dashboard']" routerLinkActive="router-link-activ" class="link">Passwort vergessen?</a>
@@ -29,5 +31,5 @@
         </div>    
             
     </div>
-        
+
 </section>

@@ -1,13 +1,12 @@
 import { Component, inject } from '@angular/core';
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
-import { Dashboard } from "../dashboard/dashboard";
 import { FakeBoard } from "./fake-board/fake-board";
 
 
 @Component({
   selector: 'app-login',
-  imports: [RouterLink, ReactiveFormsModule, Dashboard, FakeBoard],
+  imports: [RouterLink, ReactiveFormsModule, FakeBoard],
   templateUrl: './login.html',
   styleUrl: './login.css'
 })
