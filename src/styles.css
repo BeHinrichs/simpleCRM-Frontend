@@ -1,1 +1,36 @@
 /* You can add global styles to this file, and also import other style files */
+/* ############### FONTS ##################*/
+@font-face {
+    font-family: michroma;
+    src: url(./assets/fonts/Michroma-Regular.ttf);
+}
+@font-face {
+    font-family: montserrat;
+    src: url(./assets/fonts/Montserrat-VariableFont_wght.ttf);
+}
+ /* ################ Color Constant ##################*/
+
+:root {
+    --primary-color: rgb(180, 180, 180);
+    --secondary-color: rgb(210, 210, 210);
+    --third-color: whitesmoke;
+    --accent-color: rgb(1, 126, 228);
+    --accent-color-a: rgba(1, 126, 228, 0.6);
+    --text-color: grey;
+    --bg-color: rgb(70, 70, 70);
+    --error-color: orangered;
+    --success-color: green;
+    --warning-color: goldenrod;
+    --disabled-color: rgb(139, 122, 122);
+}
+
+
+/*  ################ Main Style  #####################*/
+body {
+    padding: 0;
+    margin: 0;
+    background-color: whitesmoke;
+}
+a {
+    text-decoration: none;
+}

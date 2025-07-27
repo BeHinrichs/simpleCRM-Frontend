@@ -1,0 +1,35 @@
+<app-fake-board></app-fake-board>
+
+        
+<!-- ### Login-Section  -->        
+<section class="login-main-container">
+    <div class="login-container">
+        <h1 cass="login-h1">User Login</h1>
+        <form [formGroup]="loginFormular" (ngSubmit)="onSubmit()" class="login-form">
+            <div class="login-input-container">
+                <div class="login-form-input">
+                    <input formControlName="username" type="email" placeholder="myemail@example.com" id="user-login-email">
+                    <input formControlName="password" type="password" placeholder="Password" id="user-login-password">
+                    
+                </div>
+                <div class="error-container">
+                    @if (submitted && loginFormular.invalid) {
+                        <div class="login-error"><p>Login Fehler</p></div>
+                    }
+                </div>
+            </div>
+            <button class="button" (click)="onSubmit()">
+                <div class="blob1"></div>
+                <div class="blob2"></div>
+                <div class="inner">Login</div>
+            </button>
+            
+        </form>
+        <div class="link-container">
+            <a [routerLink]="['dashboard']" routerLinkActive="router-link-activ" class="link">Passwort vergessen?</a>
+            <a [routerLink]="['dashboard']" routerLinkActive="router-link-activ" class="link">Neues Konto anlegen.</a>
+        </div>    
+            
+    </div>
+
+</section>

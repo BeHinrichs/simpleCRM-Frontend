@@ -1,0 +1,18 @@
+<nav class="navigation">
+    <div class="navigation-main-left">
+        <a [routerLink]="['main']" routerLinkActive="router-link-activ" class="navigation-main-linkone">Übersicht</a>
+        <a [routerLink]="['account']" routerLinkActive="router-link-activ" class="navigation-main-linkone">Account</a>
+        <a [routerLink]="['orders']" routerLinkActive="router-link-activ" class="navigation-main-linkone">Bestellungen</a>
+        <a [routerLink]="['billing']" routerLinkActive="router-link-activ" class="navigation-main-linkone">Rechnungen</a>
+    </div>
+    <div class="navigation-main-right">
+        <input type="text" placeholder="search" disabled>
+        <button class="button">
+            <div class="blob1"></div>
+            <div class="blob2"></div>
+            <div class="inner">suchen</div>
+        </button>
+        
+    </div>
+        
+</nav>

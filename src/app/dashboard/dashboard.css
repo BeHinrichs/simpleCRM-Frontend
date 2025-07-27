@@ -1,0 +1,42 @@
+.dashboard {
+    position: absolute;
+    width: 100vw;
+    height: 97%;
+    object-fit: cover;
+    margin-top: 0.7rem;
+    background-color: var(--bg-color);
+}
+.head-container {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+}
+
+.head {
+    width: 70%;
+}
+.head-h1 {
+    font-family: montserrat;
+    color: var(--primary-color);
+    margin-left: 1rem;
+}
+.head-does {
+    display: flex;
+    
+    width:30%;
+    justify-content: end;
+    align-items: center;
+    gap: 0.3rem;
+    padding-right: 1rem;
+}
+.link svg{
+    color: var(--primary-color);
+    height: 1.3rem;
+    width: 1.3rem;
+}
+
+/* ##################### Content ############### */
+.dashboard-content {
+    padding: 0 1rem 0 1rem;
+    height: 100%;
+}
