@@ -24,7 +24,21 @@
 
     <!-- ### Seiteninhalt - Dynamisches Routing-->
     <section class="dashboard-content">
-        <router-outlet></router-outlet>
+        <div class="weather">
+            <app-weather></app-weather>
+        </div>
+        <div class="main-body">
+            <div class="main-content">
+                <router-outlet></router-outlet>
+            </div>
+            <div class="divider"></div>
+            <div class="info">
+                <div class="task"><app-task></app-task></div>
+                <div class="notice"><app-notice></app-notice></div>
+            </div>            
+            
+        </div>
+            
     </section>
         
     

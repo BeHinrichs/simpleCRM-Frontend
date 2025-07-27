@@ -1,7 +1,7 @@
 .dashboard {
     position: absolute;
-    width: 100vw;
-    height: 97%;
+    width: 100%;
+    height: 98.7%;
     object-fit: cover;
     margin-top: 0.7rem;
     background-color: var(--bg-color);
@@ -26,17 +26,66 @@
     width:30%;
     justify-content: end;
     align-items: center;
-    gap: 0.3rem;
-    padding-right: 1rem;
+    gap: 0.7rem;
+    padding-right: 2rem;
 }
 .link svg{
     color: var(--primary-color);
-    height: 1.3rem;
-    width: 1.3rem;
+    height: 2rem;
+    width: 2rem;
 }
 
 /* ##################### Content ############### */
 .dashboard-content {
+    display: flex;
+    flex-direction: column;
     padding: 0 1rem 0 1rem;
-    height: 100%;
+    height: 82%;
+    gap: 0.2rem;
+}
+.weather {
+    height: 7%;
+    width:100%;
+    margin-top: 0.8rem;
+    margin-bottom: 0.8rem;;
+    border: 1px solid var(--accent-color);
+    padding-left:0.3rem;
+    color: var(--primary-color);
+    border-radius: 9px;
+    background-color: rgba(255, 255, 255, 0.2);
+    box-shadow: 2px 3px 6px 0 rgba(102, 80, 155, 0.3), 2.5px 2px 3px 0 rgba(114, 115, 179, 0.2);
+}
+.main-body {
+    display: flex;
+    flex-direction: row;
+    height: 89.7%;
+    min-width: 100%;
+    align-items: stretch;
+    gap: 0.5rem;
+}
+.main-content { 
+    flex: 1 1 0;  
+    min-width: 0; 
+    box-sizing: border-box;
+}
+.divider {
+    width: 2px;
+    background: linear-gradient(to bottom, #cccccc, #8752D1 60%, #537FE7);
+    margin: 0 0.5rem;
+    border-radius: 1rem;
+}
+.info {
+    flex: 0 1 30%;
+    align-self: flex-end;
+    justify-self: flex-end;
+    min-width: 20%;
+    max-width: 30%;
+    box-sizing: border-box;
+    align-self: stretch;
+}
+.task {
+    height: 40%;
+}
+.notice {
+    height: 60%;
 }
