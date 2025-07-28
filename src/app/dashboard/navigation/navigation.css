@@ -93,7 +93,7 @@
   );
   box-shadow: 10px 20px 50px #0051ff2d;
 }
-/* .blob2 {
+.blob2 {
   position: absolute;
   width: 40px;
   height: 100%;
@@ -102,12 +102,12 @@
   right: 0;
   background: radial-gradient(
     circle 100px at 0% 100%,
-    #3fe9ff,
     #0000ff80,
+    #3fe9ff
     transparent
   );
   box-shadow: -10px 10px 30px #0051ff2d;
-} */
+}
 
 .inner {
   padding: 0;
