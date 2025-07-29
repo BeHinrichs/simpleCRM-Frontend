@@ -1,0 +1,15 @@
+<div class="task-filter-container">
+    <a 
+        *ngFor="let filter of filters"
+        class="task-filter-link"
+        [class.task-filter-link-active]="selectedFilter === filter"
+        (click)="setFilter(filter)">
+        {{ filter.label }}
+    </a>
+</div>
+
+
+<!-- <a hfre="own" class="task-filter-link">Eigene</a>
+    <a href="all" class="task-filter-link">Alle</a>
+    <a href="new" class="task-filter-link">Neu</a>
+    <a href="done" class="task-filter-link">erledigt</a> -->
