@@ -5,50 +5,55 @@ import { TaskService } from '../services/task-service';
 
 @Component({
   selector: 'app-task-filter',
-  imports: [NgForOf, NgIf, NewTask, TaskService],
+  imports: [NgForOf, NgIf, NewTask],
   templateUrl: './task-filter.html',
   styleUrl: './task-filter.css'
 })
 export class TaskFilter {
   filters = [
-    { label: 'Eigene', value: 'own' },
-    { label: 'Alle', value: 'all' },
-    { label: 'Erledigt', value: 'done' },
-    { label: 'Neu', value: 'new' }
+    { label: 'Eigene', value: 'own' },          // Eigene incomplete 
+    { label: 'Alle', value: 'all' },            // Alle incomplete
+    { label: 'Erledigt', value: 'done' },       // Completed own
+    { label: 'Neu', value: 'new' }              // 
   ];
   selectedFilter = this.filters[0];
   showNewTaskInput = false;
   setFilter(filter: any) {
-    this.selectedFilter = filter;
-    if (filter.value === 'new') {
+  this.selectedFilter = filter;
+
+  switch (filter.value) {
+    case 'own':
+      this.taskService.getOwnTasks();
+      break;
+      break;
+    case 'all':
+      this.taskService.getAllTasks();
+      break;
+    case 'done':
+      this.taskService.filterCompleted();
+      break;
+    case 'new':
       this.showNewTaskInput = true;
-    } else {
-      this.showNewTaskInput = false;
-    }
+      return;
+    default:
+      this.taskService.getAllTasks();
   }
+
+  this.showNewTaskInput = false;
+}
   taskService = inject(TaskService)
 
 
-  constructor(){}
+/*   constructor(){} */
 
 
-  getAllTasks(){
-    this.taskService.getAllTasks()
-  }
 
-  filterCompletedTasks(){
-    this.taskService.filterCompleted()
-  }
-
-  filterIncompletedTasks(){
-    this.taskService.filterIncomplete()
-  }
   onTaskAdded(taskText: string) {
-    // Hier kannst du das neue Task-Objekt erzeugen oder an die Parent-Komponente senden
+   
     console.log('Neuer Task:', taskText);
-    // Nach dem Hinzufügen ggf. wieder auf Filter zurückspringen:
+    
     this.showNewTaskInput = false;
-    this.selectedFilter = this.filters[0]; // z. B. wieder auf „Eigene“
+    this.selectedFilter = this.filters[0];
   }
   
 }

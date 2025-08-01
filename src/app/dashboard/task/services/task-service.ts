@@ -11,11 +11,14 @@ export class TaskService {
   tasks = signal<Task[]>(this.todos)
 
   constructor() { }
-
+  getOwnTasks(){
+    this.tasks.set( this.todos.filter((task) => task.name === "Ben" && task.status === "incomplete") )
+   
+    return this.tasks
+  }
 
   getAllTasks(){
-    
-    this.tasks.set(this.todos)
+    this.tasks.set( this.todos.filter((task) => task.status === "incomplete") )
     return this.tasks
   }
 
@@ -41,11 +44,6 @@ export class TaskService {
 
   filterCompleted(){
     this.tasks.set( this.todos.filter((task) => task.status === "complete") )
-  }
-
-
-  filterIncomplete(){
-    this.tasks.set( this.todos.filter((task) => task.status === "incomplete"))
   }
 
 }

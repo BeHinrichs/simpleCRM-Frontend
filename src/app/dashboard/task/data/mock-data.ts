@@ -3,7 +3,7 @@ import { Task } from '../../models/task.models'
 export const tasks : Task[] = [
     {
         id:'1',
-        name: "Ben",
+        name: "Chi",
         title:"Task eins",
         status: 'complete',
         checked: true
@@ -17,7 +17,7 @@ export const tasks : Task[] = [
     },
     {
         id:'3',
-        name: "Ben",
+        name: "Satan",
         title:"Task drei muss cih mal erledigen",
         status: 'incomplete',
         checked: false
@@ -45,9 +45,9 @@ export const tasks : Task[] = [
     },
     {
         id:'7',
-        name: "Ben",
+        name: "Chi",
         title:"Task sieben",
-        status: 'complete',
-        checked: true
+        status: 'incomplete',
+        checked: false
     }
 ]
