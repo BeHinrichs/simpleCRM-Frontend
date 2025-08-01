@@ -2,13 +2,13 @@
 .teaser-list {
     display: flex;
     flex-direction: column;
-    justify-content: flex-start;
-    align-items: flex-start;
+    justify-content: center;
+    align-items: center;
     margin:1rem;
     margin-bottom: 2rem;
 }
 .task-list-h1, .teaser-list {
-    width: 45rem;
+    width: 90%;
 }
 ul {
     display: flex;

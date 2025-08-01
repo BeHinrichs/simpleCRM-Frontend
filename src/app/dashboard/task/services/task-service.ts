@@ -27,7 +27,8 @@ export class TaskService {
 
    const newTask = {
       id: (this.todos.length + 1).toString(),
-      name: "Ben",                                // Hier muss noch eingepflegt werden, das der jeweils angemeldete Username hinterlegt wird!
+      name: "Ben",                                        // Per Dropdown wählen
+      from: "Platzhalter",                                // Hier muss noch eingepflegt werden, das der jeweils angemeldete Username hinterlegt wird!
       title: task,
       status: "incomplete",
       checked: false
