@@ -1,10 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { NgForOf, NgIf } from '@angular/common';
 import { NewTask } from '../new-task/new-task';
+import { TaskService } from '../services/task-service';
 
 @Component({
   selector: 'app-task-filter',
-  imports: [NgForOf, NgIf, NewTask],
+  imports: [NgForOf, NgIf, NewTask, TaskService],
   templateUrl: './task-filter.html',
   styleUrl: './task-filter.css'
 })
@@ -25,7 +26,23 @@ export class TaskFilter {
       this.showNewTaskInput = false;
     }
   }
+  taskService = inject(TaskService)
 
+
+  constructor(){}
+
+
+  getAllTasks(){
+    this.taskService.getAllTasks()
+  }
+
+  filterCompletedTasks(){
+    this.taskService.filterCompleted()
+  }
+
+  filterIncompletedTasks(){
+    this.taskService.filterIncomplete()
+  }
   onTaskAdded(taskText: string) {
     // Hier kannst du das neue Task-Objekt erzeugen oder an die Parent-Komponente senden
     console.log('Neuer Task:', taskText);

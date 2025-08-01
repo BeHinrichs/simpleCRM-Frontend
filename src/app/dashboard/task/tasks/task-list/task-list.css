@@ -1,0 +1,65 @@
+.task-list-li-element {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items:baseline;
+    margin-left: -2rem;
+    margin-right: 3rem;
+    
+    box-sizing: border-box;
+    gap: 1.5rem;
+    border: 2px solid black;
+}
+:host-context(ul.task-list-ul):nth-child(even) li {
+    border-radius: 3px 9px 0 9px;
+    background-color: #f0f0f0;
+    margin-bottom: 0.1rem;
+}
+:host-context(ul.task-list-ul):nth-child(odd) li {
+    border-radius: 3px 9px 0 9px;
+    background-color: #d0d0d0;
+    margin-bottom: 0.1rem;
+}
+
+.checkbox {
+    appearance: none;
+    width: 25px;
+    height: 25px;
+    margin-right: 0;
+    border: 1px solid black;
+    border-radius: 3px 7px 0 7px;
+}
+
+.checkbox:checked {
+    appearance: none;
+    /*  background-color:darkorchid; */
+    border: 1px solid rgb(172, 172, 172);
+    border-radius: 3px 7px 0 7px;
+ 
+    position: relative;
+}
+.text-stroke {
+    text-decoration: line-through;
+}
+.checkbox:checked::before {
+    content: "✔";
+    position: absolute;
+    font-size: 1.6rem;
+    color: rgb(74, 255, 74);
+    left: -0.2rem;
+}
+
+.task-text {
+    font-size: 1.4rem;
+}
+.task-status {
+    font-size: 0.7rem;
+}
+
+
+/* ################### Responsive / Media Querys  #######################*/
+@media (max-width: 700px) {
+    .task-status {
+        display: none;
+    }
+}

@@ -29,7 +29,7 @@ export class TaskService {
       status: "incomplete",
       checked: false
     }
-
+    /* console.log(newTask) */
     this.todos.push(newTask)
   }
  
