@@ -5,7 +5,11 @@
         [class.task-filter-link-active]="selectedFilter === filter"
         (click)="setFilter(filter)">
         {{ filter.label }}
-    </a>
+    </a> 
+    <div class="new-task">
+        <app-new-task *ngIf="showNewTaskInput"></app-new-task>   
+    </div>
+    
 </div>
 
 

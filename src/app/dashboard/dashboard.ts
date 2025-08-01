@@ -3,11 +3,11 @@ import { RouterLink, Router, RouterOutlet } from '@angular/router';
 import { Navigation } from "./navigation/navigation";
 import { Weather } from "./weather/weather";
 import { Task } from "./task/task";
-import { Notice } from "./notice/notice";
+import { Shedule } from "./shedule/shedule";
 
 @Component({
   selector: 'app-dashboard',
-  imports: [Navigation, RouterOutlet, Weather, Task, Notice],
+  imports: [Navigation, RouterOutlet, Weather, Task, Shedule],
   templateUrl: './dashboard.html',
   styleUrl: './dashboard.css'
 })

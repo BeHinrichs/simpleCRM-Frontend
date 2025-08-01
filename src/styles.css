@@ -95,10 +95,10 @@ a {
   box-shadow: -10px 10px 30px #0051ff2d;
 }
 .inner {
-  padding: 7px;
+  
   border-radius: 14px;
   color: rgb(190, 190, 190);
-  font-size: 0.7rem;
+  font-size: 1rem;
   z-index: 3;
   position: relative;
   background: radial-gradient(circle 80px at 80% -50%, #777777, #0f1111);
