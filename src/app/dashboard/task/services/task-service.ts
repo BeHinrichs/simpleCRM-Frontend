@@ -13,8 +13,9 @@ export class TaskService {
   constructor() { }
   getOwnTasks(){
     this.tasks.set( this.todos.filter((task) => task.name === "Ben" && task.status === "incomplete") )
-   
+    console.log(this.tasks)
     return this.tasks
+    
   }
 
   getAllTasks(){

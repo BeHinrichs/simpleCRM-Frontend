@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { NgForOf, NgIf } from '@angular/common';
 import { NewTask } from '../new-task/new-task';
 import { TaskService } from '../services/task-service';
@@ -9,7 +9,11 @@ import { TaskService } from '../services/task-service';
   templateUrl: './task-filter.html',
   styleUrl: './task-filter.css'
 })
-export class TaskFilter {
+export class TaskFilter implements OnInit {
+  ngOnInit(): void {
+    this.setFilter(this.selectedFilter);
+  }
+  
   filters = [
     { label: 'Eigene', value: 'own' },          // Eigene incomplete 
     { label: 'Alle', value: 'all' },            // Alle incomplete
@@ -25,7 +29,6 @@ export class TaskFilter {
     case 'own':
       this.taskService.getOwnTasks();
       break;
-      break;
     case 'all':
       this.taskService.getAllTasks();
       break;
@@ -36,7 +39,7 @@ export class TaskFilter {
       this.showNewTaskInput = true;
       return;
     default:
-      this.taskService.getAllTasks();
+      this.taskService.getOwnTasks();
   }
 
   this.showNewTaskInput = false;

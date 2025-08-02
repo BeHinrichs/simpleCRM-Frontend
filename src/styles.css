@@ -13,6 +13,7 @@
 :root {
     --primary-color: rgb(180, 180, 180);
     --secondary-color: rgb(210, 210, 210);
+    --dark-text: rgb(37, 37, 37);
     --third-color: whitesmoke;
     --accent-color: rgb(1, 126, 228);
     --accent-color-a: rgba(1, 126, 228, 0.2);
