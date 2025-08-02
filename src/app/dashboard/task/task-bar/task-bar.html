@@ -1,0 +1,31 @@
+<section class="task-side-bar">
+    <div class="task-side-bar-head">
+        <a [routerLink]="['task']" routerLinkActive="router-link-activ" class="navigation-main-linkone">
+            <h3 class="task-side-barhead-h3">Deine Tasks</h3>
+        </a>
+    </div>
+    <div class="divider"></div>
+    <div class="teaser-list">
+        <ul class="task-list-ul">
+            @if(tasks()){
+                @for (task of tasks(); track task.id) {
+                    <li class="task-list-li-element">
+                        <input
+                        [checked]="task.checked"
+                        class="checkbox"
+                        type="checkbox"
+                        (change)="toggleStatus(task)"
+                        />
+                        <div class="task-list-text">
+                        <p class="task-text" [ngClass]="{'text-stroke': task.checked}">{{ task.title }}</p>
+                        </div>
+                    </li>
+                    }
+            } @else {
+                <li class="task-list-li-element">
+                    <p>Keine Tasks vorhanden</p>
+                </li>
+            }
+        </ul>
+    </div>
+</section>

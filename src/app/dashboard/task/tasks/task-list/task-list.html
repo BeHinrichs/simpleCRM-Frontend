@@ -1,0 +1,17 @@
+<li class="task-list-li-element">
+    <input
+        [checked]="data().checked"
+        class="checkbox"
+        type="checkbox"
+        (change)="toggleStatus()"
+    />
+    <div class="task-list-text">
+        <p class="task-text" [ngClass]="{'text-stroke': data().checked}">{{ data().title }}</p>
+    </div>
+    <div class="task-list-container">
+        <p class="task-name" [ngClass]="{'text-stroke': data().checked}">für: "{{ data().name }}" | von: "{{ data().from }}"</p>
+    </div>
+    
+        
+        
+</li>

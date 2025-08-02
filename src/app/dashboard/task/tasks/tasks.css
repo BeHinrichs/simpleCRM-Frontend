@@ -1,0 +1,25 @@
+
+.teaser-list {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin:1rem;
+    margin-bottom: 2rem;
+}
+.task-list-h1, .teaser-list {
+    width: 90%;
+}
+ul {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+/* #######  Responsive / Madia ##########*/
+
+@media (max-width: 810px) {
+    .task-list-h1, .teaser-list {
+        max-width: 90%;
+    }
+}

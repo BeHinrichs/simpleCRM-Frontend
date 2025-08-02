@@ -1,0 +1,106 @@
+a {
+    text-decoration: none;
+    font-family: montserrat;
+    color: var(--primary-color);
+
+}
+ul {
+    display: flex;
+    flex-direction: column;
+    min-width: 100%;
+    margin-left: -4rem;
+}
+
+.task-side-bar {
+    min-height: 100%;
+    background-color: rgba(255, 255, 255, 0.05);
+    box-shadow: 2px 3px 6px 0 rgba(102, 80, 155, 0.3), 2.5px 2px 3px 0 rgba(114, 115, 179, 0.2);
+}
+.task-side-barhead-h3 {
+    padding-left: 1rem;
+}
+
+.divider {
+    height: 2px;
+    background: linear-gradient(to right, #cccccc, #8752D1 60%, #537FE7);
+    margin: 0 0.5rem;
+    margin-bottom: 0.5rem;
+    border-radius: 1rem;
+}
+.teaser-list {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    margin:1rem;
+    margin-bottom: 2rem;
+    min-width: 100%;
+    font-family: michroma;
+    color: var(--dark-text);
+}
+
+
+
+
+
+.task-list-li-element {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items:center;
+    padding-left: 1rem;
+    height: 28px;
+    min-width: 100%;
+    box-sizing: border-box;
+    gap: 0.5rem;
+    border-radius: 3px 9px 0 9px;
+    background-color: #d0d0d0;
+    margin-bottom: 0.1rem;
+}
+
+.checkbox {
+    appearance: none;
+    width: 25px;
+    height: 25px;
+    margin-right: 0;
+    border: 1px solid black;
+    border-radius: 3px 7px 0 7px;
+}
+
+.checkbox:checked {
+    appearance: none;
+    /*  background-color:darkorchid; */
+    border: 1px solid rgb(172, 172, 172);
+    border-radius: 3px 7px 0 7px;
+ 
+    position: relative;
+}
+.text-stroke {
+    text-decoration: line-through;
+}
+.checkbox:checked::before {
+    content: "✔";
+    position: absolute;
+    font-size: 1.4rem;
+    color: rgb(74, 255, 74);
+    /* left: -0.2rem; */
+}
+
+.task-text {
+    margin-top: 0.8rem;
+    font-size: 1.2rem;
+}
+
+
+/* ################### Responsive / Media Querys  #######################*/
+@media (max-width: 810px) {
+    .task-list-h1, .teaser-list {
+        max-width: 90%;
+    }
+}
+
+@media (max-width: 700px) {
+    .task-status {
+        display: none;
+    }
+}

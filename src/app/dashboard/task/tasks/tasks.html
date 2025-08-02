@@ -1,0 +1,13 @@
+<div class="teaser">
+
+  
+  <div class="teaser-list">
+    <ul class="task-list-ul">
+      @if(tasks()){
+        @for (task of tasks(); track task.id) {
+          <app-task-list [data]="task" (updateTaskEvent)="updateTask(task)"></app-task-list>
+        }
+      }
+    </ul>
+  </div>
+</div>
