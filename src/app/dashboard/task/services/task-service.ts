@@ -7,6 +7,8 @@ import { Task } from '../../models/task.models';
 })
 
 export class TaskService {
+
+  /* ######## call Tasks ########### */
   todos = tasks
   tasks = signal<Task[]>(this.todos)
 
@@ -14,18 +16,13 @@ export class TaskService {
   getOwnTasks(){
     this.tasks.set( this.todos.filter((task) => task.name === "Ben" && task.status === "incomplete") )
     console.log(this.tasks)
-    return this.tasks
-    
+    return this.tasks    
   }
-
   getAllTasks(){
     this.tasks.set( this.todos.filter((task) => task.status === "incomplete") )
     return this.tasks
   }
-
-
   addNewTask(task:string){
-
    const newTask = {
       id: (this.todos.length + 1).toString(),
       name: "Ben",                                        // Per Dropdown wählen
@@ -37,7 +34,8 @@ export class TaskService {
     /* console.log(newTask) */
     this.todos.push(newTask)
   }
- 
+
+  /* ####### Update Task ########### */
   updateTask(updatedTask:Task){
     let taskIndex = this.todos.findIndex((todo) => todo.id === updatedTask.id)
     this.todos.splice(taskIndex, 1)
@@ -47,5 +45,7 @@ export class TaskService {
   filterCompleted(){
     this.tasks.set( this.todos.filter((task) => task.status === "complete") )
   }
+
+ 
 
 }

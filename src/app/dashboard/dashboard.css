@@ -41,11 +41,14 @@
     flex-direction: column;
     padding: 0 1rem 0 1rem;
     height: 86%;
+    width:100%;
     box-sizing: border-box;
     gap: 0.2rem;
 }
 .weather {
     display: flex;
+    flex-direction: row;
+    justify-content: space-between;
     align-items: center;
     height: 7%;
     box-sizing: border-box;
