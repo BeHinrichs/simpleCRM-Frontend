@@ -1,0 +1,49 @@
+a {
+    text-decoration: none;
+}
+
+
+
+.weather-bar {
+    display: flex;
+    justify-content: space-between;    
+    align-items: center;
+    box-sizing: border-box;
+    width: 100%;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    gap: 1.5rem;
+    background-color: brown;
+}
+
+.weather-bar-left {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+    min-width: 70%;
+    align-items: center;
+    box-sizing: border-box;
+    background-color: aqua;
+    gap: 1.6rem;
+}
+
+.weather-bar-right {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    box-sizing: border-box;
+    background-color: blue;
+
+}
+.time-info, .sunrise-info, .sunset-info, .wind-info, .rain-info, .sun-info {
+    font-family: michroma;
+    color: var(--dark-text);
+    font-size: 1rem;
+    display: flex;
+    gap: 0.6rem;
+    
+}
+.time-info svg, .sunrise-info svg, .sunset-info svg, .wind-info svg, .rain-info svg, .sun-info svg {
+    width: 30px;
+}

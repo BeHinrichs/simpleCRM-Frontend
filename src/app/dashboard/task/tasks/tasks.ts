@@ -13,7 +13,7 @@ export class Tasks {
   taskService = inject(TaskService)
   tasks = inject(TaskService).getAllTasks()
 
-  updateTask(task: Task) {                /* Dies funktioniert! Update wird getriggert -> Task Daten werden übergeben*/
+  updateTask(task: Task) {               
     this.taskService.updateTask(task)
   }
 }
