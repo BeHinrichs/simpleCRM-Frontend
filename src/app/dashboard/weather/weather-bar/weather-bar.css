@@ -46,3 +46,9 @@ a {
 .time-info svg, .sunrise-info svg, .sunset-info svg, .wind-info svg, .rain-info svg, .sun-info svg {
     width: 30px;
 }
+.position {
+    color: var(--dark-text);
+    padding-top: 2rem;
+    padding-left: 2rem;
+    font-style: oblique;
+}

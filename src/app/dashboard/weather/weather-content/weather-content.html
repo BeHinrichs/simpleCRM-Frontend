@@ -1,0 +1,35 @@
+<div class="weather-content-container">
+    <div class="weather-content-position">
+        <p>Aktuelle Position: {{ weatherService.coordsShort().lat }} N {{ weatherService.coordsShort().lon }} <Em></Em></p>
+        <p>Die Position wird später noch umgewandelt in einen Ort. Doch dafür ist eine Registrierung nötig.</p>
+    </div>
+    
+    <h2 class="weather-forecast">Wetterforecast</h2>
+    <p class="weather-forecast-station">Wetterstation: {{ stationName }}</p>
+
+    <!-- Schleife durch die stündlichen Wetterdaten -->
+    <div *ngIf="hourlyWeather?.weather?.length > 0" class="weather-forecast-hourly-container">
+        <div *ngFor="let hour of hourlyWeather.weather" class="weather-forecast-hourly-hour">
+            <!-- Timestamp +2 (für lokale Zeit) -->
+            <p class="weather-forecast-hourly-hour-time">{{ hour.timestamp | date:'HH:mm' }} Uhr</p>
+            
+            <!-- Icon -->
+            <img *ngIf="hour.icon" [src]="'https://www.brightsky.dev/icons/' + hour.icon + '.svg'" alt="Wetter Icon" class="weather-forecast-hourly-hour-icon">
+
+            <p>Bedingung: {{ hour.condition || 'N/A' }}</p>
+            <p>Temperatur: {{ hour.temperature || 'N/A' }} °C</p>
+            <p>Luftdruck: {{ hour.pressure_msl || 'N/A' }} hPa</p>
+            <p>Niederschlagswahrscheinlichkeit: {{ hour.precipitation_probability || 'N/A' }} %</p>
+            <p>Niederschlag: {{ hour.precipitation || 'N/A' }} mm</p>
+            
+            <p>Sonneneinstrahlung: {{ hour.solar || 'N/A' }}</p>
+            <p>Sonnenschein: {{ hour.sunshine || 'N/A' }} min</p>
+            <p>Windrichtung: {{ getCardinalDirection(hour.wind_direction) }}</p>
+            <p>Windgeschwindigkeit: {{ hour.wind_speed || 'N/A' }} km/h</p>
+            <p>Windböen: {{ hour.wind_gust_speed || 'N/A' }} km/h</p>
+            <p>Wolkenbedeckung: {{ hour.cloud_cover || 'N/A' }} %</p>
+            
+        </div>
+    </div>
+    <p *ngIf="!hourlyWeather?.weather?.length" class="mt-4 text-gray-400">Stündliche Wetterdaten werden geladen oder sind nicht verfügbar...</p>
+</div>
