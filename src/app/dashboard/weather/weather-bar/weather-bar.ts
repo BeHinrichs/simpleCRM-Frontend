@@ -25,21 +25,29 @@ export class WeatherBar implements OnInit {
   // Dadurch wird der API-Aufruf erst gestartet, wenn die Daten verfügbar sind.
   _ = effect(() => {
     if (this.weatherService.locationLoaded()) {
-      this.weatherService.getSunriseSunset().subscribe({
-        next: (data) => {
-          this.sunriseSunset = data;
-          console.log('Sunrise Sunset JSON:', data);
-        },
-        error: (err) => {
-          this.sunriseSunset = null;
-          console.error('Keine Sonnenzeiten:', err);
-        }
-      });
+      const coords = this.weatherService.coords();
+      if (coords.latitude !== null && coords.longitude !== null) {
+          this.weatherService.getSunriseSunset().subscribe({
+          next: (data) => {
+            this.sunriseSunset = data;
+            console.log('Sunrise Sunset JSON:', data);
+          },
+          error: (err) => {
+            this.sunriseSunset = null;
+            console.error('Keine Sonnenzeiten:', err);
+          }
+        });
+
+        this.weatherService.fetchCurrentWeather();
+        this.weatherService.fetchHourlyWeather();
+      } else {
+        console.warn('GeoLocation geladen, keine gültigen Koordinaten.')
+      }
+      
     }
   });
 
-  // Getter, um die formatierte Sonnenaufgangszeit direkt in der Vorlage zu verwenden.
-  // Gibt eine leere Zeichenkette zurück, falls die Daten noch nicht geladen sind.
+
   get localSunriseTime(): string {
     if (this.sunriseSunset?.sunrise) {
       const sunriseUtc = new Date(this.sunriseSunset.sunrise);
@@ -55,6 +63,56 @@ export class WeatherBar implements OnInit {
       return sunsetUtc.toLocaleTimeString('de-DE', { hour: '2-digit', minute: '2-digit' });
     }
     return '';
+  }
+  getDayTime(): string {
+    if(this.sunriseSunset?.sunrise && this.sunriseSunset?.sunset) {
+      const sunriseTime = new Date(this.sunriseSunset.sunrise);
+      const sunsetTime = new Date(this.sunriseSunset.sunset);
+
+      // Berechne die Differenz in Millisekunden
+      const differenceMs = sunsetTime.getTime() - sunriseTime.getTime();
+
+      // Wandle Millisekunden in Stunden um (1000 ms/s * 60 s/min * 60 min/h)
+      const hours = differenceMs / (1000 * 60 * 60);
+
+      // Runde auf zwei Dezimalstellen und gib als String zurück
+      return hours.toFixed(2);
+    }
+    return '';
+  }
+  getSolarAverage(): string {
+    const hourlyData = this.weatherService.hourlyWeather()?.weather;
+    const sunrise = new Date(this.sunriseSunset?.sunrise);
+    const sunset = new Date(this.sunriseSunset?.sunset);
+    if (!hourlyData || hourlyData.length === 0 || !sunrise || !sunset) return 'N/A';
+
+    const solarValues: number[] = [];
+    for (let i = 0; i < hourlyData.length; i++) {
+      const timestamp = new Date(hourlyData[i].timestamp);
+      if (timestamp >= sunrise && timestamp <= sunset) {
+        solarValues.push(hourlyData[i].solar ?? 0);
+      }
+    }
+
+    if (solarValues.length === 0) return 'N/A';
+    const avg = solarValues.reduce((a, b) => a + b, 0) / solarValues.length;
+    return avg.toFixed(2);
+  }
+
+  /**
+   * Wandelt Windrichtung in Grad in eine Himmelsrichtung um.
+   * @param degrees Windrichtung in Grad (0-360)
+   * @returns Himmelsrichtung (z.B. 'N', 'SW') oder 'N/A'
+   */
+  getCardinalDirection(degrees: number | null): string {
+    if (degrees === null || typeof degrees === 'undefined') {
+      return 'N/A';
+    }
+    const directions = ['N', 'NNO', 'NO', 'ONO', 'O', 'OSO', 'SO', 'SSO', 'S', 'SSW', 'SW', 'WSW', 'W', 'WNW', 'NW', 'NNW'];
+    // Teilt 360 Grad durch die Anzahl der Richtungen, um den Winkel pro Richtung zu erhalten.
+    // Rundet auf die nächste ganze Zahl und verwendet Modulo, um im Array-Index zu bleiben.
+    const index = Math.round(degrees / (360 / directions.length));
+    return directions[index % directions.length];
   }
 }
 

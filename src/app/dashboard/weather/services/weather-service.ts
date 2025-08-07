@@ -1,24 +1,28 @@
 import { Injectable, signal, computed, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, firstValueFrom } from 'rxjs'; // Import BehaviorSubject and firstValueFrom
-import { map } from 'rxjs/operators'; // Import map operator
+import { Observable, firstValueFrom } from 'rxjs'; 
+import { map } from 'rxjs/operators'; 
 
 interface SunriseSunsetData {
   sunrise: string;
   sunset: string;
-  // Weitere Felder, falls benötigt
 }
 
 @Injectable({
   providedIn: 'root'
 })
+
+
 export class WeatherService {
- /*  private http = inject(HttpClient); // HttpClient injizieren */
+ 
   private BRIGHTSKY_API_BASE_URL = 'https://api.brightsky.dev';
+
+
   /* ##### Location ###### */
   coords = signal<{ latitude: number | null, longitude: number | null }>({ latitude: null, longitude: null });
   locationLoaded = signal<boolean>(false);
-
+  currentWeather = signal<any>(null);
+  hourlyWeather = signal<any>(null);
   constructor(private http: HttpClient) {
     this.updateTime();
     setInterval(() => this.updateTime(), 1000);
@@ -53,6 +57,7 @@ export class WeatherService {
     lon: Number(this.coords().longitude?.toFixed(4)),
   }));
 
+
   /* #### Time ###### */
   timeString: string = '';
 
@@ -62,46 +67,68 @@ export class WeatherService {
       hour: '2-digit',
       minute: '2-digit',
       second: '2-digit'
+      
     });
   }
 
   /* Wetterdaten Brightsky */
-  getWeather() {
+  fetchCurrentWeather(): void {                                                                                 // Rückgabetyp ist void, also kein Rückgabewert
     const { latitude, longitude } = this.coords();
+
     if (latitude === null || longitude === null) {
-      throw new Error("Koordinaten sind noch nicht gesetzt.");
+      console.error("Koordinaten sind noch nicht gesetzt.");
+      this.currentWeather.set(null);                                                                            // Wenn Koordinaten noch nicht geladen wird das signal auf null gesetzt
+      return;
     }
-    const url = `${this.BRIGHTSKY_API_BASE_URL}/current_weather?lat=53.2326&lon=10.4106`;
-    /* const url = `https://api.brightsky.dev/current_weather?lat=53.2326553647406&lon=10.41062046908784`; */
-    /* 52.383409914163416, 9.728510090033799  Hannover*/
-    /* 53.2326553647406, 10.41062046908784 Lüneburg */
-    return this.http.get<any>(url);
+
+    const url = `${this.BRIGHTSKY_API_BASE_URL}/current_weather?lat=53.2326&lon=10.4106`;                       // Manuell auf Lüneburg gesetzt -> Es fehlt eine Routine die prüft ob Wetterdaten da sind
+                                                                                                                /* const url = `https://api.brightsky.dev/current_weather?lat=53.2326553647406&lon=10.41062046908784`; */
+                                                                                                                /* 52.383409914163416, 9.728510090033799  Hannover*/
+                                                                                                                /* 53.2326553647406, 10.41062046908784 Lüneburg */
+    this.http.get<any>(url).subscribe({
+      next: (data) => {
+        this.currentWeather.set(data.weather);                                                                   // Daten im signal speichern
+        console.log('Current Weather: ', data.weather);
+      },
+      error: (err) => {
+        this.currentWeather.set(null);
+        console.error('Wetterdaten konnte nicht geladen werden: ', err);
+      }
+    });
   }
 
-  getHourlyWeather() {
+  fetchHourlyWeather(): void {
+    const { latitude, longitude } = this.coords();
+    if (latitude === null || longitude === null) {
+      console.error("Koordinaten sind noch nicht gesetzt.");
+      this.hourlyWeather.set(null);                                                                            // Wenn Koordinaten noch nicht geladen wird das signal auf null gesetzt
+      return;
+    }
+
     const now = new Date();
-    // Enddatum ist 24 Stunden nach dem Startdatum
-    const endDate = new Date(now.getTime() + 24 * 60 * 60 * 1000);
-
-    // Daten im ISO 8601 Format für die URL aufbereiten (YYYY-MM-DDTHH:MM:SS)
-    // .slice(0, 19) schneidet die Millisekunden ab
-    const startDateISO = now.toISOString().slice(0, 19);
-    const endDateISO = endDate.toISOString().slice(0, 19);
-
-    /* const url = `${this.BRIGHTSKY_API_BASE_URL}/weather?lat${this.coordsShort().lat}&lon${this.coordsShort().lon}&&date=${startDateISO}&last_date=${endDateISO}`; */
+    const endDate = new Date(now.getTime() + 24 * 60 * 60 * 1000);                                              // Enddatum = Datum + 24 Stunden
+    const startDateISO = now.toISOString().slice(0, 19);                                                        // Daten im ISO 8601 Format für die URL aufbereiten (YYYY-MM-DDTHH:MM:SS)
+    const endDateISO = endDate.toISOString().slice(0, 19);                                                      // .slice(0, 19) schneidet die Millisekunden ab
+                                                                                                                /* const url = `${this.BRIGHTSKY_API_BASE_URL}/weather?lat${this.coordsShort().lat}&lon${this.coordsShort().lon}&&date=${startDateISO}&last_date=${endDateISO}`; */
     const url = `${this.BRIGHTSKY_API_BASE_URL}/weather?lat=53.2326&lon=10.4106&&date=${startDateISO}&last_date=${endDateISO}`;
-
-    console.log('Hourly Weather API URL:', url); // Zum Debuggen die erzeugte URL ausgeben
-    return this.http.get(url);
+    
+    
+    this.http.get<any>(url).subscribe ({
+      next: (data) => {
+        this.hourlyWeather.set(data);
+        console.log('Stündliche Wetterdaten: ', data);
+      },
+      error: (err) => {
+        this.hourlyWeather.set(null);
+        console.error('ForecastWetter konnte nicht geladen werden', err)
+      }
+    });
   }
 
   /* Sonnenauf- und Sonnenuntergangsdaten */
   getSunriseSunset(): Observable<SunriseSunsetData> {
     const { latitude, longitude } = this.coords();
     if (latitude === null || longitude === null) {
-      // Wenn die Koordinaten noch nicht geladen sind, könnten Sie hier einen leeren Observable zurückgeben
-      // oder einen Fehler werfen, je nachdem, wie Sie das behandeln möchten.
-      // Da der Effekt im Component auf 'locationLoaded' wartet, sollte dies hier weniger ein Problem sein.
       return new Observable(); // Oder throw new Error, etc.
     }
 
