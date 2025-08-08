@@ -46,6 +46,13 @@
     overflow-x: visible;
     overflow-y: auto;
     -webkit-overflow-scrolling: touch;
+    scrollbar-width: thin;
+    scrollbar-color: var(--accent-color-a);
+    scrollbar-3dlight-color: aqua;
+    scrollbar-base-color: blue;
+}
+::-webkit-scrollbar {
+    color: var(--accent-color-a);
 }
 .weather-forecast-hourly-carousel-track {
     display: flex;
@@ -63,9 +70,7 @@
         box-shadow 0.2s;
     min-width: 430px;    
     max-width: 600px;
-    padding-left: 0.5rem;
-    padding-right: 0.5rem;
-    padding-bottom: 0.5rem;
+    margin-top: 2rem;
     border-radius: 1rem;
     /* background: var(--accent-color-a2); */
     box-shadow: 0 4px 16px 0 rgba(90,70,130,0.12);

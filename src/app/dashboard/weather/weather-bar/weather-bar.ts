@@ -99,10 +99,10 @@ export class WeatherBar implements OnInit {
     return avg.toFixed(2);
   }
 
-  /**
-   * Wandelt Windrichtung in Grad in eine Himmelsrichtung um.
-   * @param degrees Windrichtung in Grad (0-360)
-   * @returns Himmelsrichtung (z.B. 'N', 'SW') oder 'N/A'
+  /*
+    Wandelt Windrichtung in Grad in eine Himmelsrichtung um.
+    @param degrees Windrichtung in Grad (0-360)
+    @returns Himmelsrichtung (z.B. 'N', 'SW') oder 'N/A'
    */
   getCardinalDirection(degrees: number | null): string {
     if (degrees === null || typeof degrees === 'undefined') {

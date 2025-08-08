@@ -16,7 +16,6 @@
                                 'carousel-card-bg': isBgCard(i)
                             }"
                             class="weather-forecast-hourly-carousel-card">
-                        <!-- <div *ngFor="let hour of weatherService.hourlyWeather().weather" class="weather-forecast-hourly-hour"> -->
                             <div class="weather-forecast-hourly-carousel">
                                 <div class="weather-forecast-hourly-carousel-head">
                                     <div class="weather-forecast-hourly-hour-time-container">
@@ -185,7 +184,10 @@
         </div>
         <div class="weather-forecast-hourly-right">
             <div class="weather-forecast-hourly-trend-container">
-                <p>Hier entsteht ein Trendgraph</p>
+                <div class="weather-forecast-hourly-trend-container">
+                    <!-- Hinzugefügt: Canvas-Element für das Diagramm -->
+                    <canvas id="temperatureChart"></canvas>
+                </div>
             </div>
         </div>
         

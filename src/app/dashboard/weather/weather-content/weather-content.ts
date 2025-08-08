@@ -1,6 +1,7 @@
 import { Component, inject, effect, AfterViewInit, ViewChild, ElementRef, ViewChildren, QueryList, viewChildren } from '@angular/core';
 import { WeatherService } from '../services/weather-service';
 import { CommonModule, DatePipe } from '@angular/common'; // DatePipe importieren
+import { Chart } from 'chart.js/auto';
 
 @Component({
   selector: 'app-weather-content',
@@ -96,4 +97,5 @@ Math: any;
 
     this.focusIndex = closestIndex;
   }
+  
 }
