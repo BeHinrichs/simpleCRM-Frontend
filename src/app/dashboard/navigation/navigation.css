@@ -1,6 +1,7 @@
 .navigation {
     display: flex;
     flex-direction: row;
+    justify-content: space-between;
     position: relative;
     padding: 0 1rem 0 1rem;
     height: 50px;
@@ -11,7 +12,6 @@
 }
 .navigation-main-left {
     display: flex;
-    width: 60%;
     gap: 0.1rem;
 }
 .navigation-main-linkone {
@@ -37,18 +37,40 @@
 }
 .navigation-main-right {
     display: flex;
-    width: 40%;
     justify-content: flex-end;
     align-items: center;
+    
+}
+
+.nacigation-search-form {
     gap:1rem;
 }
 .navigation-main-right input {
-    height: 30px;
+    height: 35px;
     font-size: 1rem;
     border-radius: 3px 9px 0 9px;
     padding-left: 0.7rem;
     width: 20rem;
     background-color: whitesmoke;
 }
+button {
+    align-self: center;
+    margin-top: -0.2rem;
+    margin-left: 1rem;
+}
 
+
+/* ############## Media Querys - Responsive ############*/
+
+@media (max-width: 1140px) {
+    .navigation-main-right {
+        display: none;
+    }
+}
+@media (max-width: 730px) {
+    .navigation-main-left {
+        background-color: #537FE7;
+        /* Hier das Hamburger Menü erstellen */
+    }
+}
 

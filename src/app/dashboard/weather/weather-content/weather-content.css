@@ -13,19 +13,19 @@
 }
 .weather-forecast-hourly-container {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     justify-content: center;
-    align-items: center;
+    align-items: flex-start;
     width: 100%;
     box-sizing: border-box;
     gap: 1rem;
-    perspective: 1000px;
+    /* perspective: 1000px; */
 }
 
 .weather-forecast-hourly-left {
     display: flex;
     flex-direction: column;
-    width: 80%;
+    width: 50%;
     height: 40vh;
     gap: 0.5rem;
     box-sizing: border-box;
@@ -46,22 +46,37 @@
     overflow-x: visible;
     overflow-y: auto;
     -webkit-overflow-scrolling: touch;
-    scrollbar-width: thin;
-    scrollbar-color: var(--accent-color-a);
-    scrollbar-3dlight-color: aqua;
-    scrollbar-base-color: blue;
+    /* scrollbar-width: thin;
+    scrollbar-color: var(--accent-color-a); */
+    
 }
 ::-webkit-scrollbar {
-    color: var(--accent-color-a);
+    background: transparent;
+    width: 7px;
 }
+::-webkit-scrollbar-track {
+    background: linear-gradient(to bottom, #cccccc, #8752D1 60%, #537FE7);
+    border-radius: 8px;
+    height: 15px;
+}
+::-webkit-scrollbar-thumb {
+    background: #b97ff7;
+    border-radius: 8px;
+    border: 1px solid #fff;    /* Abstand zum Rand */
+    min-height: 48px;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: #9545c2;
+}
+
 .weather-forecast-hourly-carousel-track {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-
+    margin-top: 2rem;
     gap: -2rem;
-    width: 80%;
+    width: 100%;
 }
 
 .weather-forecast-hourly-carousel-card {
@@ -70,11 +85,10 @@
         box-shadow 0.2s;
     min-width: 430px;    
     max-width: 600px;
-    margin-top: 2rem;
+    /* margin-top: 2rem; */
     border-radius: 1rem;
-    /* background: var(--accent-color-a2); */
-    box-shadow: 0 4px 16px 0 rgba(90,70,130,0.12);
-    /* weitere gewünschte Styles */
+    /* box-shadow: 0 4px 16px 0 rgba(90,70,130,0.12); */
+    box-shadow: 2px 3px 6px 0 rgba(102, 80, 155, 0.3), 2.5px 2px 3px 0 rgba(114, 115, 179, 0.2);
 }
 .carousel-card-focus {
     transform: scale(1) translateY(-15px) perspective(600px) rotateY(0deg);
@@ -99,15 +113,6 @@
     z-index: 1;
     opacity: 0.65;
 }
-/* .weather-forecast-hourly-carousel {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: flex-start;
-    width: 100%;
-    border-radius: 9px;
-    background-color: pink;
-} */
 .weather-forecast-hourly-carousel-head {
     display: flex;
     flex-direction: row;
@@ -133,7 +138,10 @@
 .weather-forecast-hourly-carousel-head-icon-container svg {
     width: 50px;
     height: 50px;
-    color: var(--primary-color);
+    
+}
+.weather-forecast-hourly-carousel-head-icon-container svg path {
+  fill: var(--primary-color);
 }
 .icon {
     display: none;
@@ -162,6 +170,12 @@
 }
 
 .weather-forecast-hourly-right {
-    width:100%;
-    background-color: aqua;
+    width:50%;
+    padding-right: 0.5rem;
+}
+.weather-forecast-hourly-trend-temp {
+    border: 1px solid black;
+}
+.temp-trend {
+    margin-bottom: 1rem;
 }

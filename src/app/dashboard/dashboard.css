@@ -39,6 +39,7 @@
 .dashboard-content {
     display: flex;
     flex-direction: column;
+    justify-content: space-between;
     padding: 0 1rem 0 1rem;
     height: 86%;
     width:100%;
@@ -48,9 +49,10 @@
 .weather {
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
+    /* justify-content: space-between;   */         
     align-items: center;
     height: 7%;
+    /* width: 100%; */
     box-sizing: border-box;
     margin-top: 0.8rem;
     margin-bottom: 0.8rem;
@@ -61,18 +63,22 @@
     background-color: rgba(255, 255, 255, 0.2);
     box-shadow: 2px 3px 6px 0 rgba(102, 80, 155, 0.3), 2.5px 2px 3px 0 rgba(114, 115, 179, 0.2);
 }
+.weather-bar {
+    width: 100%;
+}
 .main-body {
     display: flex;
     flex-direction: row;
     height: 89.7%;
-    min-width: 100%;
-    align-items: stretch;
+    width: 100%;
     gap: 0.5rem;
 }
 .main-content { 
-    flex: 1 1 0;  
-    min-width: 0; 
+    width: 70%;
     box-sizing: border-box;
+}
+.router-outlet {
+    width: 100%;
 }
 .divider {
     width: 2px;
@@ -81,13 +87,8 @@
     border-radius: 1rem;
 }
 .info {
-    flex: 0 1 30%;
-    align-self: flex-end;
-    justify-self: flex-end;
-    min-width: 20%;
-    max-width: 30%;
+    width: 30%;
     box-sizing: border-box;
-    align-self: stretch;
 }
 .task {
     height: 40%;

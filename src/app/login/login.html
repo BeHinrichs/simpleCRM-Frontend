@@ -5,7 +5,7 @@
 <section class="login-main-container">
     <div class="login-container">
         <h1 cass="login-h1">User Login</h1>
-        <form [formGroup]="loginFormular" (ngSubmit)="onSubmit()" class="login-form">
+        <form [formGroup]="loginFormular" (ngSubmit)="onSubmit()" class="login-form" id="user-login">
             <div class="login-input-container">
                 <div class="login-form-input">
                     <input formControlName="username" type="email" placeholder="myemail@example.com" id="user-login-email">
@@ -18,7 +18,7 @@
                     }
                 </div>
             </div>
-            <button class="button" (click)="onSubmit()">
+            <button class="button" (click)="onSubmit()" id="user-login-button">
                 <div class="blob1"></div>
                 <div class="blob2"></div>
                 <div class="inner">Login</div>
