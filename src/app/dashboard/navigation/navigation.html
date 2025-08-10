@@ -1,11 +1,16 @@
 <nav class="navigation">
-    <div class="navigation-main-left">
-        <a [routerLink]="['main']" routerLinkActive="router-link-activ" class="navigation-main-linkone">Übersicht</a>
-        <a [routerLink]="['pv-station']" routerLinkActive="router-link-activ" class="navigation-main-linkone">PV-Anlage</a>
-        <a [routerLink]="['home-matic']" routerLinkActive="router-link-activ" class="navigation-main-linkone">Home-Matic</a>
-        <a [routerLink]="['weather']" routerLinkActive="router-link-activ" class="navigation-main-linkone">Wetter</a>
-        <a [routerLink]="['shedule']" routerLinkActive="router-link-activ" class="navigation-main-linkone">Kalender</a>
-        <a [routerLink]="['task']" routerLinkActive="router-link-activ" class="navigation-main-linkone">ToDo</a>
+    <div class="navigation-left-hb" id="navigation-left-hamburger" (click)="toggleMenu()">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-list" viewBox="0 0 16 16">
+            <path fill-rule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5"/>
+        </svg>
+    </div>
+    <div class="navigation-main-left" id="navigation-main-left" [class.show]="isMenuOpen">
+        <a [routerLink]="['main']" routerLinkActive="router-link-activ" class="navigation-main-linkone" (click)="closeMenu()">Übersicht</a>
+        <a [routerLink]="['pv-station']" routerLinkActive="router-link-activ" class="navigation-main-linkone" (click)="closeMenu()">PV-Anlage</a>
+        <a [routerLink]="['home-matic']" routerLinkActive="router-link-activ" class="navigation-main-linkone" (click)="closeMenu()">Home-Matic</a>
+        <a [routerLink]="['weather']" routerLinkActive="router-link-activ" class="navigation-main-linkone" (click)="closeMenu()">Wetter</a>
+        <a [routerLink]="['shedule']" routerLinkActive="router-link-activ" class="navigation-main-linkone" (click)="closeMenu()">Kalender</a>
+        <a [routerLink]="['task']" routerLinkActive="router-link-activ" class="navigation-main-linkone" (click)="closeMenu()">ToDo</a>
     </div>
     <div class="navigation-main-right">
         <form class="nacigation-search-form" id="navigation-search">

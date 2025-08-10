@@ -27,7 +27,7 @@ ul {
     margin-bottom: 0.5rem;
     border-radius: 1rem;
 }
-.teaser-list {
+.task-list {
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
