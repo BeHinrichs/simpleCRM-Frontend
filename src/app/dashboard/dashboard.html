@@ -24,12 +24,16 @@
 
     <!-- ### Seiteninhalt - Dynamisches Routing-->
     <section class="dashboard-content">
+        
         <div class="weather">
-            <app-weather></app-weather>
+            <app-weather-bar class="weather-bar"></app-weather-bar>
+        </div>
+        <div class="info-row">
+            <p>Inforbar horizontal</p>
         </div>
         <div class="main-body">
             <div class="main-content">
-                <router-outlet></router-outlet>
+                <router-outlet class="router-outlet"></router-outlet>
             </div>
             <div class="divider"></div>
             <div class="info">

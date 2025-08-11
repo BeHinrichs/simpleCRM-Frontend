@@ -1,13 +1,16 @@
-<div class="teaser">
+<div class="task">
 
   
-  <div class="teaser-list">
-    <ul class="task-list-ul">
-      @if(tasks()){
-        @for (task of tasks(); track task.id) {
-          <app-task-list [data]="task" (updateTaskEvent)="updateTask(task)"></app-task-list>
+  <div class="task-list">
+    <form class="task-list-form" id="tasks-form">
+      <ul class="task-list-ul">
+        @if(tasks()){
+          @for (task of tasks(); track task.id) {
+            <app-task-list class="task-list-app-container" [data]="task" (updateTaskEvent)="updateTask(task)"></app-task-list>
+          }
         }
-      }
-    </ul>
+      </ul>
+    </form>
+      
   </div>
 </div>

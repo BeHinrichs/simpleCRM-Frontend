@@ -1,0 +1,131 @@
+a {
+    text-decoration: none;
+}
+
+.weather-bar {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    font-family: michroma;
+    
+    font-size: 1rem;
+    
+}
+
+.weather-bar-left {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 1.4rem;
+}
+
+.weather-bar-right {
+    display: flex;
+    align-items: center;
+
+}
+.time-info, .sunrise-info, .sunset-info, .wind-info, .rain-info, .sun-info, .temperature {
+    
+    display: flex;
+    gap: 0.5rem;
+    color: var(--dark-text);
+}
+/* .time-info {
+} */
+.time-long {
+    display: flex;
+}
+.time-middle {
+    display: none;
+}
+.time-short {
+    display: none;
+}
+.time-time {
+    display: none;
+}
+
+.time-info svg, .sunrise-info svg, .sunset-info svg, .wind-info svg, .rain-info svg, .sun-info svg, .temperature svg {
+    width: 30px;
+}
+.time-info svg path, .sunrise-info svg path, .sunset-info svg path, .wind-info svg path, .rain-info svg path, .sun-info svg path, .temperature svg path {
+    fill: var(--dark-text);
+}
+.position {
+    color: var(--dark-text);
+    padding-top: 2rem;
+    padding-left: 2rem;
+    font-style: oblique;
+}
+
+
+/* ###################   Media Querys - Responsive ##########*/
+
+@media (max-width: 1330px) {
+    .time-long {
+        display: none;
+    }
+    .time-middle {
+        display: flex;
+    }
+    .time-short {
+        display: none;
+    }
+    .time-time {
+        display: none;
+    }
+}
+@media (max-width: 1240px) {
+    .time-long {
+        display: none;
+    }
+    .time-middle {
+        display: none;
+    }
+    .time-short {
+        display: flex;
+    }
+    .time-time {
+        display: none;
+    }
+}
+@media (max-width: 1180px) {
+    .time-long {
+        display: none;
+    }
+    .time-middle {
+        display: none;
+    }
+    .time-short {
+        display: none;
+    }
+    .time-time {
+        display: flex;
+    }
+}
+@media (max-width: 1100px) {
+    .sunrise-info, .sunset-info {
+        display: none;
+    }
+
+}
+@media (max-width: 855px) {
+    .wind-info {
+        display: none;
+    }
+
+}
+@media (max-width: 640px) {
+    .rain-info {
+        display: none;
+    }
+
+}
+@media (max-width: 450px) {
+    .temperature {
+        display: none;
+    }
+
+}
