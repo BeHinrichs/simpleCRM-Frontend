@@ -19,15 +19,25 @@ export class TaskBar {
   ));
 
   constructor() { }
+getTaskCount(): number {
+  return this.tasks().length;
+}
 
+/*   updateTask(task: Task) {
+    this.taskService.updateTask(task);
+  } */
 
-  updateTask(task: Task) {
-      this.taskService.updateTask(task);
-    }
+/*   toggleStatus(task: Task) {
+    task.checked = !task.checked;
+    task.checked ? task.status = "complete" : task.status = "incomplete";
+    this.updateTask(task);
+  } */
 
-    toggleStatus(task: Task) {
-      task.checked = !task.checked;
-      task.checked ? task.status = "complete" : task.status = "incomplete";
-      this.updateTask(task);
-    }
+  
+
+}
+const screenWidth = window.innerWidth;
+console.log('Screenwidth: ', screenWidth, "px");
+if(screenWidth <= 1440) {
+  console.log('Hurra Deine Schleife wirkt!')
 }
