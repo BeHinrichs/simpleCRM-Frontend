@@ -1,4 +1,5 @@
 import { Component, inject } from '@angular/core';
+import { toSignal } from '@angular/core/rxjs-interop';
 import { TaskList } from "./task-list/task-list";
 import { TaskService } from '../services/task-service';
 import { Task } from '../../models/task.models';
@@ -11,9 +12,15 @@ import { Task } from '../../models/task.models';
 })
 export class Tasks {
   taskService = inject(TaskService)
-  tasks = inject(TaskService).getAllTasks()
+  tasks = toSignal(this.taskService.getAllTasks());
 
   updateTask(task: Task) {               
     this.taskService.updateTask(task)
   }
+  ngOnInit(){
+    setTimeout(() => {
+      console.log(this.tasks())
+    },2000)
+  }
 }
+

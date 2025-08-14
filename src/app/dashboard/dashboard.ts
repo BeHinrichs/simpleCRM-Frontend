@@ -7,7 +7,7 @@ import { TaskBar } from './task/task-bar/task-bar';
 
 @Component({
   selector: 'app-dashboard',
-  imports: [Navigation, RouterOutlet, WeatherBar, Shedule, TaskBar],
+  imports: [Navigation, RouterOutlet, WeatherBar, TaskBar],
   templateUrl: './dashboard.html',
   styleUrl: './dashboard.css'
 })
