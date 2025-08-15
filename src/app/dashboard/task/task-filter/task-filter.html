@@ -7,7 +7,10 @@
         {{ filter.label }}
     </a> 
     <div class="new-task">
-        <app-new-task *ngIf="showNewTaskInput"></app-new-task>   
+        <app-new-task 
+            *ngIf="showNewTaskInput"
+            (taskAdded)="onTaskAdded()">
+        </app-new-task>  
     </div>
     
 </div>
