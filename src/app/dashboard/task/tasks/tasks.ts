@@ -17,10 +17,10 @@ export class Tasks {
   updateTask(task: Task) {               
     this.taskService.updateTask(task)
   }
-  ngOnInit(){
+  /* ngOnInit(){
     setTimeout(() => {
       console.log(this.tasks())
     },2000)
-  }
+  } */
 }
 
