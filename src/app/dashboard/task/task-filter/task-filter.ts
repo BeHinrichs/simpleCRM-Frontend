@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, HostListener, ElementRef } from '@angular/core';
 import { NgForOf, NgIf } from '@angular/common';
 import { NewTask } from '../new-task/new-task';
 import { TaskService } from '../services/task-service';
@@ -12,6 +12,7 @@ import { TaskService } from '../services/task-service';
 })
 export class TaskFilter {
   taskService = inject(TaskService);
+  private elementRef = inject(ElementRef);
   
   filters = [
     { label: 'Eigene', value: 'own' },
@@ -22,6 +23,17 @@ export class TaskFilter {
   selectedFilter = this.filters[0];
   showNewTaskInput = false;
 
+  @HostListener('document:click', ['$event'])
+  onDocumentClick(event: MouseEvent): void {
+    // 3. Prüfe, ob das geklickte Element (event.target) innerhalb des
+    //    Komponenten-Elements (this.elementRef.nativeElement) liegt.
+    const clickedInside = this.elementRef.nativeElement.contains(event.target);
+    
+    // 4. Wenn der Klick NICHT innerhalb war, schließe das Eingabefeld.
+    if (!clickedInside) {
+      this.showNewTaskInput = false;
+    }
+  }
   ngOnInit(): void {
     // Setze den initialen Filter im Service
     this.taskService.setFilter('own');
@@ -34,6 +46,7 @@ export class TaskFilter {
       this.showNewTaskInput = true;
       return;
     }
+
     
     // EINZIGE AUFGABE: Den Service über die Filteränderung informieren.
     this.taskService.setFilter(filter.value);
@@ -46,4 +59,8 @@ export class TaskFilter {
     // Setze den Filter zurück, damit der neue Task sichtbar wird (falls nötig).
     this.setFilter(this.filters[0]);
   }
+}
+
+function onDocumentClick(event: Event | undefined, MouseEvent: { new(type: string, eventInitDict?: MouseEventInit): MouseEvent; prototype: MouseEvent; }) {
+  throw new Error('Function not implemented.');
 }

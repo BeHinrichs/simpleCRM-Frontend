@@ -32,14 +32,14 @@ export class TaskService {
     this.allTasks$,
     this.filter$
   ]).pipe(
-    // 4. Die map-Operation führt die eigentliche Filterung im Frontend durch.
+    
     map(([tasks, filter]) => {
       /* console.log(`Filtere ${tasks.length} Tasks mit dem Filter: '${filter}'`); */
       const currentUser = "Ben"; // Später durch echten User ersetzen
 
       switch (filter) {
         case 'own':
-          console.log('Alle Tasks: ', this.HttpClient.get<TaskInterface[]>(this.baseUrl))
+          /* console.log('Alle Tasks: ', this.HttpClient.get<TaskInterface[]>(this.baseUrl)) */
           return tasks.filter((t: { name: string; status: string; }) => t.name === currentUser && t.status === 'incomplete');
         case 'all':
           return tasks.filter((t: { status: string; }) => t.status === 'incomplete');
@@ -55,28 +55,6 @@ export class TaskService {
     this.filter$.next(filter);
   }
 
-  // Alte Methoden unnötig
-  /* 
-  getAllTasks(): Observable<TaskInterface[]> {
-    return this.HttpClient.get<TaskInterface[]>(this.baseUrl);
-  }
-
-  getOwnTasks(): Observable<TaskInterface[]> {
-    const params = new HttpParams()
-      .set('name', 'Ben') // Später durch eingeloggten User ersetzen
-      .set('status', 'incomplete');
-    
-    // Gib das Observable direkt zurück, genau wie bei den anderen Methoden.
-    return this.HttpClient.get<TaskInterface[]>(this.baseUrl, { params });
-  }
-
-  getCompletedTasks(){
-    let params = new HttpParams();
-    params = params.append('status', 'complete'); 
-
-    return this.HttpClient.get<TaskInterface[]>(this.baseUrl, { params: params });
-  } 
-  */
   
   addNewTask(taskTitle: string): Observable<TaskInterface> {
     const newTaskPayload = {
