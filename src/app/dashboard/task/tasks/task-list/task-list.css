@@ -1,12 +1,4 @@
-.task-list-container {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    margin-top: 1rem;
-    gap: 5px;
-    color: black;
-}
+
 .task-list-text {
     width: 60%;
     justify-content: flex-start;
@@ -25,17 +17,10 @@
     gap: 1rem;
     border: 2px solid black;
 }
-:host-context(ul.task-list-ul):nth-child(even) li {
-    border-radius: 3px 9px 0 9px;
-    background-color: #f0f0f0;
-    margin-bottom: 0.1rem;
-}
-:host-context(ul.task-list-ul):nth-child(odd) li {
-    border-radius: 3px 9px 0 9px;
-    background-color: #d0d0d0;
-    margin-bottom: 0.1rem;
-}
-
+/* .task-list-cell-id, .task-list-cell-check, .task-list-cell-title, .task-list-cell-name,.task-list-cell-from {
+    
+    background-color: aqua!;
+} */
 .checkbox {
     appearance: none;
     width: 25px;
@@ -47,7 +32,7 @@
 
 .checkbox:checked {
     appearance: none;
-    /*  background-color:darkorchid; */
+    background-color:darkorchid;
     border: 1px solid rgb(172, 172, 172);
     border-radius: 3px 7px 0 7px;
  
@@ -64,15 +49,22 @@
     /* left: -0.2rem; */
 }
 
-.task-text {
-    margin-top: 0.8rem;
-    font-size: 1.2rem;
-}
-
 
 /* ################### Responsive / Media Querys  #######################*/
-@media (max-width: 700px) {
-    .task-status {
+@media (max-width: 1170px) {
+    .task-list-cell-from {
         display: none;
     }
 }
+
+@media (max-width: 960px) {
+    .task-list-cell-id {
+        display: none;
+    }
+}
+@media (max-width: 715px) {
+    .task-list-cell-name {
+        display: none;
+    }
+}
+

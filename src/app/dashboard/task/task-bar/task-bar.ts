@@ -1,29 +1,31 @@
-import { Component, inject, input, output, Injectable, signal } from '@angular/core';
+import { Component, inject, computed } from '@angular/core';
+import { toSignal } from '@angular/core/rxjs-interop';
 import { RouterLink } from '@angular/router';
 import { TaskService } from '../services/task-service';
-import { Task } from '../../models/task.models';
-import { tasks } from '../data/mock-data';
 
 @Component({
   selector: 'app-task-bar',
+  standalone: true,
   imports: [RouterLink],
   templateUrl: './task-bar.html',
   styleUrl: './task-bar.css'
 })
 export class TaskBar {
-  taskService = inject(TaskService)
-  todos = tasks
-  tasks = signal<Task[]>(this.todos.filter(
-    task => task.name === "Ben" && task.status === "incomplete"       // Username vom eingeloggten User, Später nur User ID aus DB
-  ));
+  private taskService = inject(TaskService);
 
-  constructor() { }
-getTaskCount(): number {
-  return this.tasks().length;
-}
-}
-const screenWidth = window.innerWidth;
-console.log('Screenwidth: ', screenWidth, "px");
-if(screenWidth <= 1440) {
-  console.log('Hurra Deine Schleife wirkt!')
+  // 1. Hole die UNGEFILTERTE Liste vom Service.
+  private allTasks = toSignal(this.taskService.tasks$, { initialValue: [] });
+
+  // 2. Erstelle ein computed Signal, das NUR für die Zählung in der TaskBar filtert.
+  //    Diese Logik ist jetzt komplett unabhängig von den Klicks in der TaskFilter-Komponente.
+  private ownIncompleteTasks = computed(() =>
+    this.allTasks().filter(
+      task => task.name === "Ben" && task.status === "incomplete"
+    )
+  );
+
+  // 3. getTaskCount() greift jetzt auf das neue computed Signal zu.
+  getTaskCount(): number {
+    return this.ownIncompleteTasks().length;
+  }
 }

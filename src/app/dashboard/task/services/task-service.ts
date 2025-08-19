@@ -1,51 +1,82 @@
-import { Injectable, signal } from '@angular/core';
+import { Injectable, signal, inject } from '@angular/core';
+import { HttpClient, HttpParams} from '@angular/common/http';
 import { tasks } from '../data/mock-data';
-import { Task } from '../../models/task.models';
+import { Observable, BehaviorSubject, combineLatest } from 'rxjs';
+import { TaskInterface } from '../../models/task-interface';
+import { switchMap, tap, map, shareReplay } from 'rxjs/operators';
+
+type FilterValue = 'own' | 'all' | 'done';
 
 @Injectable({
   providedIn: 'root'
 })
 
+
+
 export class TaskService {
+ 
 
   /* ######## call Tasks ########### */
   todos = tasks
-  tasks = signal<Task[]>(this.todos)
+  tasks = signal<TaskInterface[]>([]);
+  HttpClient = inject(HttpClient)
+  private readonly baseUrl = 'http://127.0.0.1:8000/api/tasks/';
+  private allTasks$ = this.HttpClient.get<TaskInterface[]>(this.baseUrl).pipe(
+    shareReplay(1)
+  );
+  private filter$ = new BehaviorSubject<FilterValue>('own');
 
   constructor() { }
-  getOwnTasks(){
-    this.tasks.set( this.todos.filter((task) => task.name === "Ben" && task.status === "incomplete") )
-    console.log(this.tasks)
-    return this.tasks    
+
+  public tasks$: Observable<TaskInterface[]> = combineLatest([
+    this.allTasks$,
+    this.filter$
+  ]).pipe(
+    
+    map(([tasks, filter]) => {
+      /* console.log(`Filtere ${tasks.length} Tasks mit dem Filter: '${filter}'`); */
+      const currentUser = "Ben"; // Später durch echten User ersetzen
+
+      switch (filter) {
+        case 'own':
+          /* console.log('Alle Tasks: ', this.HttpClient.get<TaskInterface[]>(this.baseUrl)) */
+          return tasks.filter((t: { name: string; status: string; }) => t.name === currentUser && t.status === 'incomplete');
+        case 'all':
+          return tasks.filter((t: { status: string; }) => t.status === 'incomplete');
+        case 'done':
+          return tasks.filter((t: { name: string; status: string; }) => t.status === 'complete');
+        default:
+          return tasks;
+      }
+    })
+  );
+
+  setFilter(filter: FilterValue): void {
+    this.filter$.next(filter);
   }
-  getAllTasks(){
-    this.tasks.set( this.todos.filter((task) => task.status === "incomplete") )
-    return this.tasks
-  }
-  addNewTask(task:string){
-   const newTask = {
-      id: (this.todos.length + 1).toString(),
-      name: "Ben",                                        // Per Dropdown wählen
-      from: "Platzhalter",                                // Hier muss noch eingepflegt werden, das der jeweils angemeldete Username hinterlegt wird!
-      title: task,
+
+  
+  addNewTask(taskTitle: string): Observable<TaskInterface> {
+    const newTaskPayload = {
+      title: taskTitle,
+      name: "Ben",             // Später dynamisch vom eingeloggten User
+      create_by: "Platzhalter",        // Später dynamisch
       status: "incomplete",
       checked: false
-    }
-    /* console.log(newTask) */
-    this.todos.push(newTask)
+    };
+
+    return this.HttpClient.post<TaskInterface>(this.baseUrl, newTaskPayload).pipe(
+      tap(() => {
+        console.log('Task wurde gepostet, löse Neuladen aus...');
+      })
+    );
   }
 
   /* ####### Update Task ########### */
-  updateTask(updatedTask:Task){
-    let taskIndex = this.todos.findIndex((todo) => todo.id === updatedTask.id)
-    this.todos.splice(taskIndex, 1)
-    this.todos.splice(taskIndex, 0, updatedTask)
-  }
 
-  filterCompleted(){
-    this.tasks.set( this.todos.filter((task) => task.status === "complete") )
+  updateTask(updatedTask: TaskInterface) {
+    // Hier käme der httpClient.put(...) Aufruf
+    console.log("Sende Update an Backend:", updatedTask);
   }
-
- 
 
 }
