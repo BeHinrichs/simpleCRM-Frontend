@@ -40,6 +40,20 @@
 
 /* #######  Responsive / Madia ##########*/
 
-@media (max-width: 810px) {
-    
+@media (max-width: 1170px) {
+    .table-from {
+        display: none;
+    }
+}
+
+@media (max-width: 960px) {
+    .table-id {
+        display: none;
+    }
+}
+
+@media (max-width: 715px) {
+    .table-to {
+        display: none;
+    }
 }

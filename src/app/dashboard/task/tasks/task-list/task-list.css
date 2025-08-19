@@ -17,7 +17,10 @@
     gap: 1rem;
     border: 2px solid black;
 }
-
+/* .task-list-cell-id, .task-list-cell-check, .task-list-cell-title, .task-list-cell-name,.task-list-cell-from {
+    
+    background-color: aqua!;
+} */
 .checkbox {
     appearance: none;
     width: 25px;
@@ -29,7 +32,7 @@
 
 .checkbox:checked {
     appearance: none;
-     background-color:darkorchid;
+    background-color:darkorchid;
     border: 1px solid rgb(172, 172, 172);
     border-radius: 3px 7px 0 7px;
  
@@ -48,8 +51,20 @@
 
 
 /* ################### Responsive / Media Querys  #######################*/
-@media (max-width: 700px) {
-    .task-status {
+@media (max-width: 1170px) {
+    .task-list-cell-from {
         display: none;
     }
 }
+
+@media (max-width: 960px) {
+    .task-list-cell-id {
+        display: none;
+    }
+}
+@media (max-width: 715px) {
+    .task-list-cell-name {
+        display: none;
+    }
+}
+

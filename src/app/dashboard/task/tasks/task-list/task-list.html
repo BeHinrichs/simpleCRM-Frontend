@@ -1,21 +1,21 @@
 
 
 @if(data()){
-    <td class="task-list-li-element-cell">{{ data().id }}</td>
-    <td class="task-list-li-element-cell"><input
+    <td class="task-list-cell-id">{{ data().id }}</td>
+    <td class="task-list-cell-check"><input
         [checked]="data().checked"
         class="checkbox"
         type="checkbox"
         (change)="toggleStatus()"
         id="task-form-checkbox"
     /></td>
-    <td class="task-list-li-element-cell">
+    <td class="task-list-cell-title">
         <p class="task-text" [ngClass]="{'text-stroke': data().checked}">{{ data().title }}</p>
     </td>
-    <td class="task-list-li-element-cell">
+    <td class="task-list-cell-name">
         <p class="task-name" [ngClass]="{'text-stroke': data().checked}">{{ data().name }}</p>
     </td>
-    <td class="task-list-li-element-cell">
+    <td class="task-list-cell-from">
         <p class="task_from" [ngClass]="{'text-stroke': data().checked}">{{ data().create_by }}</p>
     </td> 
 }
