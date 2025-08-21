@@ -1,7 +1,11 @@
+<h1 class="header">Taskliste</h1>
 
-
-<section class="task-container">
-    <app-task-head class="app-task-head"></app-task-head>
-    <app-task-filter class="app-task-filter"></app-task-filter>
-    <app-tasks class="app-task-task"></app-tasks>
-</section>
+<nav class="task-list">
+    <div class="taskfilter">
+        @if(filter) {
+            @for(f of filter; track f.value) {
+                <button class="filter-button" (click)="setFilter(f.value)">{{f.label}}</button>
+            }
+        }
+    </div>
+</nav>
