@@ -2,7 +2,7 @@ import { Component, inject, signal } from '@angular/core';
 import { TaskService } from './service/task-service';
 import { TaskList } from "./task-list/task-list";
 
-
+export type FilterValue = 'own' | 'all' | 'done';
 
 
 @Component({
@@ -14,7 +14,6 @@ import { TaskList } from "./task-list/task-list";
 
 
 export class Task {
-  sendfilter = inject(TaskService)
   taskService = inject(TaskService)
 
   filter = [
@@ -26,16 +25,12 @@ export class Task {
   selectedFilter = signal(this.filter[0].value)
 
   setFilter(filterValue: string): void {
-    if(filterValue === 'new') {
-      // toggle new Task
-    } else {
-      
-      this.selectedFilter.set(filterValue);
-      console.log('Task Setter sagt Filter: ', this.selectedFilter())
+    if (filterValue === 'new') {
+      // Deine Logik für einen neuen Task
+      return;
     }
-    
+    this.selectedFilter.set(filterValue)
+    this.taskService.setFilter(filterValue as FilterValue);
   }
-
-
 
 }

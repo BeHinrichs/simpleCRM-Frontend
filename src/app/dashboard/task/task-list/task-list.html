@@ -7,14 +7,14 @@
             <td class="table-head-title">Titel</td>
             <td class="table-head-name">für</td>
             <td class="table-head-from">von</td>
-            @if(getCurrentFilter() === 'done') {
+            @if(taskService.filter() === 'own') {
                 <td class="table-head-del">del</td>
             }
         </thead>
         <tbody>
             
-                @if(tasksResource.hasValue()){
-                    @for(task of tasksResource.value(); track task.id) {
+                @if(tasks()){
+                    @for(task of tasks(); track task.id) {
 
                         <tr>
                             <td class="task-list-cell-id">{{ task.id }}</td>
@@ -28,7 +28,7 @@
                             <td class="task-list-cell-title">{{ task.title }}</td>
                             <td class="task-list-cell-name">{{ task.name }}</td>
                             <td class="task-list-cell-from">{{ task.create_by }}</td>
-                            @if(getCurrentFilter() === 'done') {
+                            @if(taskService.filter() === 'own') {
                                 <td class="task-list-cell-del">del</td>
                             }
                         </tr>

@@ -1,8 +1,6 @@
-import { Component, inject, input, computed } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { TaskService } from '../service/task-service';
-import { HttpClient } from '@angular/common/http';
-import { ActivatedRoute, Router } from '@angular/router';
-import { Task } from '../task';
+
 
 @Component({
   selector: 'app-task-list',
@@ -11,21 +9,12 @@ import { Task } from '../task';
   styleUrl: './task-list.css'
 })
 export class TaskList {
-  httpClient = inject(HttpClient)
+
   taskService = inject(TaskService)
-  tasksResource = this.taskService.getAllTasks()
-  route = inject(ActivatedRoute)
-  router = inject(Router)
-  taskReload = this.taskService.getAllTasks()
-  currentFilter = input.required<string>()
-  currentUser='Ben'
+  tasks = this.taskService.filteredTasks;
 
-  getCurrentFilter() {
-    return this.currentFilter();
-  }
-
-  toggleStatus(id:string):any {
-    const currentTask = this.tasksResource.value()?.find(task => task.id === id)
+  /* toggleStatus(id:string):any {
+    const currentTask = this.tasksRessource.value()?.find(task => task.id === id)
     if (currentTask) {
       console.log('Gefundener Task:', currentTask.checked);
       if(currentTask.checked === true) {
@@ -39,10 +28,30 @@ export class TaskList {
       }
       console.log('Der fertige Update', currentTask)
       this.taskService.updateTask(id, currentTask).subscribe({
-        next: () => this.taskReload.reload(),
+        next: () => this.tasksRessource.reload(),
         error: () => console.warn('Error 103.4')
       })
       
+    }
+  } */
+ toggleStatus(id: string): void {
+    // Finde den Task im aktuell angezeigten, gefilterten Array.
+    const taskToUpdate = this.tasks().find(task => task.id === id);
+
+    if (taskToUpdate) {
+      // Erstelle eine Kopie des Objekts für das Update.
+      const updatedTask = { ...taskToUpdate };
+      updatedTask.checked = !updatedTask.checked;
+      updatedTask.status = updatedTask.checked ? 'complete' : 'incomplete';
+      
+      this.taskService.updateTask(id, updatedTask).subscribe({
+        next: () => {
+          console.log('Update im Backend erfolgreich!');
+          // Rufe die neue reload-Methode im Service auf.
+          
+        },
+        error: (err) => console.error('Fehler beim Update:', err)
+      });
     }
   }
 }

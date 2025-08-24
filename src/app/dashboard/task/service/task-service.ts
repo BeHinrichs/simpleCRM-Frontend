@@ -1,7 +1,10 @@
-import { httpResource, HttpResourceRef } from '@angular/common/http';
-import { inject, Injectable } from '@angular/core';
+import { HttpClient, httpResource } from '@angular/common/http';
+import { Injectable, inject, signal, computed } from '@angular/core';
+import { toSignal } from '@angular/core/rxjs-interop';
 import { TaskInterface } from '../../models/task-interface';
-import { HttpClient } from '@angular/common/http';
+import { Observable, BehaviorSubject, switchMap } from 'rxjs';
+
+type FilterValue = 'own' | 'all' | 'done';
 
 @Injectable({
   providedIn: 'root'
@@ -9,10 +12,32 @@ import { HttpClient } from '@angular/common/http';
 export class TaskService {
   private baseURL = 'http://127.0.0.1:8000/api/tasks/'
   httpClient = inject(HttpClient)
-  private status = 'complete'
+  filter = signal<FilterValue>('own');
+  currentUser = 'Ben'
+  allTasks = toSignal(this.httpClient.get<TaskInterface[]>(this.baseURL), { initialValue: [] }); // Alle Tasks mit filter own -> Muss in name = currentUser übersetzt werden
+  refreshTrigger$ = new BehaviorSubject<void>(undefined);
+  allTasks$ = this.refreshTrigger$.pipe(
+    switchMap(() => this.httpClient.get<TaskInterface[]>(this.baseURL))
+  );
 
-  getAllTasks() {
-    return httpResource<TaskInterface[]>(() => this.baseURL)
+  filteredTasks = computed(() => {
+    const tasks = this.allTasks();
+    const currentFilter = this.filter();
+
+    console.log(`Service filtert jetzt nach: ${currentFilter}`);
+
+    switch (currentFilter) {
+      case 'own':
+        return tasks.filter(t => t.name === this.currentUser && t.status === 'incomplete');
+      case 'all':
+        return tasks.filter(t => t.status === 'incomplete');
+      case 'done':
+        return tasks.filter(t => /* t.name === this.currentUser &&  */t.status === 'complete');
+    }
+  });
+
+  setFilter(newFilter: FilterValue): void {
+    this.filter.set(newFilter);
   }
 
   
@@ -21,6 +46,10 @@ export class TaskService {
     console.log('Service meldet: ', id, data)
     return this.httpClient.put<TaskInterface>(`http://127.0.0.1:8000/api/tasks/${id}/`, data)
 
+  }
+  reloadTasks(): void {
+    console.log('Reload wird ausgelöst...');
+    this.refreshTrigger$.next();
   }
   
 }
