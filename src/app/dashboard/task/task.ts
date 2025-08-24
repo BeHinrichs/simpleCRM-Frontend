@@ -1,12 +1,13 @@
-import { Component, inject } from '@angular/core';
-import { TaskService } from './task-service';
+import { Component, inject, signal } from '@angular/core';
+import { TaskService } from './service/task-service';
+import { TaskList } from "./task-list/task-list";
 
 
 
 
 @Component({
   selector: 'app-task',
-  imports: [],
+  imports: [TaskList],
   templateUrl: './task.html',
   styleUrl: './task.css'
 })
@@ -22,19 +23,19 @@ export class Task {
     {label: 'Erledigt', value: 'done'},
     {label: 'Neu', value: 'new'}
   ];
-  private selectedFilter = this.filter[0]
+  selectedFilter = signal(this.filter[0].value)
 
-  
-
-
-  setFilter(filter: string) {
-    if(filter === 'new') {
+  setFilter(filterValue: string): void {
+    if(filterValue === 'new') {
       // toggle new Task
     } else {
-      this.taskService.setFilter(filter)
+      
+      this.selectedFilter.set(filterValue);
+      console.log('Task Setter sagt Filter: ', this.selectedFilter())
     }
     
   }
+
 
 
 }

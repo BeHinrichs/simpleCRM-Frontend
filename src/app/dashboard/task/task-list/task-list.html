@@ -1,1 +1,45 @@
-<p>task-list works!</p>
+
+<form class="task-list-form">
+    <table class="table table-dark table-hover table-strip">
+        <thead>
+            <td class="table-head-id">#</td>
+            <td class="table-head-check">Check</td>
+            <td class="table-head-title">Titel</td>
+            <td class="table-head-name">für</td>
+            <td class="table-head-from">von</td>
+            @if(getCurrentFilter() === 'done') {
+                <td class="table-head-del">del</td>
+            }
+        </thead>
+        <tbody>
+            
+                @if(tasksResource.hasValue()){
+                    @for(task of tasksResource.value(); track task.id) {
+
+                        <tr>
+                            <td class="task-list-cell-id">{{ task.id }}</td>
+                            <td class="task-list-cell-check"><input
+                                [checked]="task.checked"
+                                class="checkbox"
+                                type="checkbox"
+                                (change)="toggleStatus(task.id)"
+                                
+                            /></td>
+                            <td class="task-list-cell-title">{{ task.title }}</td>
+                            <td class="task-list-cell-name">{{ task.name }}</td>
+                            <td class="task-list-cell-from">{{ task.create_by }}</td>
+                            @if(getCurrentFilter() === 'done') {
+                                <td class="task-list-cell-del">del</td>
+                            }
+                        </tr>
+                    }
+                }
+               
+
+        </tbody>
+
+    </table>
+
+</form>
+
+ <!-- <p class="task_from" [ngClass]="{'text-stroke': tasks().checked}">{{ tasks().create_by }}</p> -->

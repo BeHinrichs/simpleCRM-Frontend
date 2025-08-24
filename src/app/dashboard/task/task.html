@@ -1,11 +1,20 @@
-<h1 class="header">Taskliste</h1>
-
-<nav class="task-list">
-    <div class="taskfilter">
-        @if(filter) {
-            @for(f of filter; track f.value) {
-                <button class="filter-button" (click)="setFilter(f.value)">{{f.label}}</button>
-            }
-        }
+<section class="task">
+    <div class="header">
+        <h1>Taskliste</h1>
     </div>
-</nav>
+    
+    <div class="filter-nav">
+        <nav class="task-filter-nav">
+            @if(filter) {
+                @for(f of filter; track f.value) {
+                    <button class="filter-button" (click)="setFilter(f.value)">{{f.label}}</button>
+                }
+            }
+        </nav>
+    </div>
+    <div class="task-list">
+        <app-task-list class="app-task-list" [currentFilter]="selectedFilter()"></app-task-list>
+    </div>
+
+</section>    
+    

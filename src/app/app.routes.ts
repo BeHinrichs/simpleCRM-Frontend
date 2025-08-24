@@ -24,6 +24,9 @@ export const routes: Routes = [
             { path: "pv-station", component: PvStation},
             { path: "home-matic", component: HomeMatic},
             { path: "task", component: Task },
+            { path: "task/:id", component: Task},
+            { path: "task/:name", component: Task},
+            { path: "task/:status", component: Task},
             { path: "weather", component: Weather },
             { path: "notice", component: Notice},
             { path: "shedule", component: Shedule}
