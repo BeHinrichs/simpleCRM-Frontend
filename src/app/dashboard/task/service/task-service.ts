@@ -2,7 +2,6 @@ import { HttpClient, httpResource } from '@angular/common/http';
 import { Injectable, inject, signal, computed } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { TaskInterface } from '../../models/task-interface';
-import { Observable, BehaviorSubject, switchMap } from 'rxjs';
 
 type FilterValue = 'own' | 'all' | 'done';
 
@@ -15,30 +14,39 @@ export class TaskService {
   filter = signal<FilterValue>('own');
   currentUser = 'Ben'
   allTasks = toSignal(this.httpClient.get<TaskInterface[]>(this.baseURL), { initialValue: [] }); // Alle Tasks mit filter own -> Muss in name = currentUser übersetzt werden
-  refreshTrigger$ = new BehaviorSubject<void>(undefined);
-  allTasks$ = this.refreshTrigger$.pipe(
-    switchMap(() => this.httpClient.get<TaskInterface[]>(this.baseURL))
-  );
+  
+  getAllTasks() {
+    console.log('Alle Tasks:', httpResource<TaskInterface[]>(() => `${this.baseURL}`))
+    return  httpResource<TaskInterface[]>(() => `${this.baseURL}`)
+  }
+
+  setFilter(newFilter: FilterValue): void {
+    
+    this.filter.set(newFilter);
+    /* console.log('der Filter ist: ', this.filter()) */
+    
+  }
 
   filteredTasks = computed(() => {
     const tasks = this.allTasks();
     const currentFilter = this.filter();
 
-    console.log(`Service filtert jetzt nach: ${currentFilter}`);
+    /* console.log(`Service filtert jetzt nach: ${currentFilter}`); */
 
     switch (currentFilter) {
       case 'own':
-        return tasks.filter(t => t.name === this.currentUser && t.status === 'incomplete');
+        /* console.log('Gefiltert: ', tasks.filter(t => t.name === this.currentUser && t.status === 'incomplete')) */
+        return tasks.filter(t => t.name === this.currentUser && t.status === 'incomplete')
       case 'all':
-        return tasks.filter(t => t.status === 'incomplete');
+        /* console.log('Gefiltert: ', tasks.filter(t => t.status === 'incomplete')) */
+        return tasks.filter(t => t.status === 'incomplete')
       case 'done':
-        return tasks.filter(t => /* t.name === this.currentUser &&  */t.status === 'complete');
+        /* console.log('Gefiltert: ', tasks.filter(t => t.name === this.currentUser && t.status === 'complete')) */
+        return tasks.filter(t => /* t.name === this.currentUser &&  */t.status === 'complete')
     }
   });
 
-  setFilter(newFilter: FilterValue): void {
-    this.filter.set(newFilter);
-  }
+
 
   
   updateTask(id:string, data:TaskInterface) {
@@ -47,10 +55,5 @@ export class TaskService {
     return this.httpClient.put<TaskInterface>(`http://127.0.0.1:8000/api/tasks/${id}/`, data)
 
   }
-  reloadTasks(): void {
-    console.log('Reload wird ausgelöst...');
-    this.refreshTrigger$.next();
-  }
-  
 }
 
